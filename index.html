@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hackaton ro'yxati — Maktab uchun AI yordamchisi</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --bordo:#8A1B3D; --bordo-dark:#6E1230; --oltin:#F7B84B; --krem:#FBF8F1;
+    --ink:#1F1A1C; --muted:#6B6066; --line:#E3D9DC; --ok:#1E7A52;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--krem);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:16px;line-height:1.55}
+  header{background:var(--bordo);color:#fff;padding:28px 20px 30px;border-bottom:5px solid var(--oltin)}
+  .wrap{max-width:720px;margin:0 auto;padding:0 20px}
+  header .wrap{padding:0 20px}
+  header img{height:44px;width:auto;display:block;margin-bottom:18px}
+  h1{font-family:Montserrat,Inter,sans-serif;font-size:28px;line-height:1.15;margin:0 0 8px;font-weight:700}
+  header p{margin:0;color:#F3D6DF;font-size:15px}
+  main{padding:26px 0 60px}
+  .note{background:#FDF3E3;border-left:4px solid var(--oltin);border-radius:8px;padding:14px 16px;font-size:14.5px;margin-bottom:24px}
+  .note b{color:var(--bordo)}
+  form{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px}
+  .f{margin-bottom:20px}
+  .f:last-of-type{margin-bottom:8px}
+  label.q{display:block;font-weight:600;font-size:15px;margin-bottom:7px}
+  .hint{display:block;font-weight:400;color:var(--muted);font-size:13.5px;margin-top:2px}
+  .req{color:var(--bordo)}
+  input[type=text],input[type=tel],select,textarea{
+    width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:9px;font:inherit;background:#fff;color:var(--ink)}
+  textarea{min-height:92px;resize:vertical}
+  input:focus,select:focus,textarea:focus{outline:2px solid var(--bordo);outline-offset:1px;border-color:var(--bordo)}
+  .two{display:flex;gap:12px;flex-wrap:wrap}
+  .two > div{flex:1 1 180px;min-width:0}
+  .opts{display:flex;flex-direction:column;gap:9px;margin-top:4px}
+  .opt{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--line);border-radius:9px;padding:11px 13px;cursor:pointer}
+  .opt:hover{border-color:var(--bordo)}
+  .opt input{margin:3px 0 0;width:18px;height:18px;accent-color:var(--bordo);flex-shrink:0}
+  button{width:100%;background:var(--bordo);color:#fff;border:0;border-radius:999px;padding:15px 20px;font:inherit;font-weight:700;font-size:17px;cursor:pointer;margin-top:12px}
+  button:hover{background:var(--bordo-dark)}
+  button[disabled]{opacity:.6;cursor:default}
+  .err{color:#B00020;font-size:14px;margin-top:10px;min-height:1px}
+  .done{display:none;background:#fff;border:1px solid var(--line);border-radius:14px;padding:30px 24px;text-align:center}
+  .done h2{font-family:Montserrat,Inter,sans-serif;color:var(--ok);margin:0 0 10px;font-size:22px}
+  .done p{margin:0 0 6px;color:var(--ink)}
+  .done .small{color:var(--muted);font-size:14.5px}
+  footer{color:var(--muted);font-size:13.5px;text-align:center;padding:0 20px 40px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <img src="./najot-logo.png" alt="Najot Ta'lim Maktabi">
+    <h1>Hackaton ro'yxati</h1>
+    <p>Maktab uchun AI yordamchisi &middot; 28-noyabr, shanba, 10:00</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="note">
+    <b>Ro'yxat 23-noyabr soat 18:00 da yopiladi.</b> Jamoada 3&ndash;4 kishi, 5&ndash;11 sinf.
+    Formani bitta kishi &mdash; kapitan to'ldiradi. Savollar bo'lsa IT, AI yoki Robototexnika ustozlaringizga murojaat qiling.
+  </div>
+
+  <form id="f" novalidate>
+    <div class="f">
+      <label class="q" for="team_name">Jamoa nomi <span class="req">*</span></label>
+      <input type="text" id="team_name" name="team_name" required maxlength="60" autocomplete="off">
+    </div>
+
+    <div class="f">
+      <label class="q" for="first">Kapitan ism-familiyasi <span class="req">*</span></label>
+      <div class="two">
+        <div><input type="text" id="first" name="first" placeholder="Ism" required autocomplete="given-name"></div>
+        <div><input type="text" id="last" name="last" placeholder="Familiya" required autocomplete="family-name"></div>
+      </div>
+    </div>
+
+    <div class="f">
+      <label class="q" for="captain_class">Kapitan sinfi <span class="req">*</span></label>
+      <select id="captain_class" name="captain_class" required>
+        <option value="">Tanlang</option>
+        <option>5-sinf</option><option>6-sinf</option><option>7-sinf</option><option>8-sinf</option>
+        <option>9-sinf</option><option>10-sinf</option><option>11-sinf</option>
+      </select>
+    </div>
+
+    <div class="f">
+      <label class="q" for="phone">Kapitan telefon raqami <span class="req">*</span>
+        <span class="hint">Masalan: +998 90 123 45 67</span></label>
+      <input type="tel" id="phone" name="phone" required autocomplete="tel" placeholder="+998 __ ___ __ __">
+    </div>
+
+    <div class="f">
+      <label class="q" for="members">Jamoa a'zolari <span class="req">*</span>
+        <span class="hint">Har bir a'zo yangi qatorda: ism-familiya va sinf. Kapitanni ham yozing.</span></label>
+      <textarea id="members" name="members" required placeholder="Aziz Karimov, 9-A&#10;Dilnoza Rahimova, 9-A&#10;Sardor Tursunov, 8-B"></textarea>
+    </div>
+
+    <div class="f">
+      <label class="q" for="members_count">A'zolar soni <span class="req">*</span></label>
+      <select id="members_count" name="members_count" required>
+        <option value="">Tanlang</option>
+        <option>3</option><option>4</option>
+      </select>
+    </div>
+
+    <div class="f">
+      <span class="q">Yo'nalish <span class="req">*</span>
+        <span class="hint">Yordamchingiz kim uchun?</span></span>
+      <div class="opts" id="direction">
+        <label class="opt"><input type="radio" name="direction" value="O'quvchi uchun" required> O'quvchi uchun</label>
+        <label class="opt"><input type="radio" name="direction" value="O'qituvchi uchun"> O'qituvchi uchun</label>
+        <label class="opt"><input type="radio" name="direction" value="Maktab uchun"> Maktab uchun</label>
+        <label class="opt"><input type="radio" name="direction" value="Hali tanlamadik"> Hali tanlamadik</label>
+      </div>
+    </div>
+
+    <div class="f">
+      <label class="q" for="idea">Loyiha g'oyasi <span class="req">*</span>
+        <span class="hint">Bir-ikki gapda: qanday muammo va kim uchun. Keyinchalik o'zgartirsangiz bo'ladi.</span></label>
+      <textarea id="idea" name="idea" required></textarea>
+    </div>
+
+    <div class="f">
+      <span class="q">Qaysi vosita bilan ishlamoqchisiz <span class="req">*</span></span>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="tool" value="Veb-sahifa" required> Veb-sahifa</label>
+        <label class="opt"><input type="radio" name="tool" value="Telegram bot"> Telegram bot</label>
+        <label class="opt"><input type="radio" name="tool" value="Scratch yoki no-code"> Scratch yoki no-code</label>
+        <label class="opt"><input type="radio" name="tool" value="O'qitilgan model"> O'qitilgan model</label>
+        <label class="opt"><input type="radio" name="tool" value="Hali noma'lum"> Hali noma'lum</label>
+      </div>
+    </div>
+
+    <div class="f">
+      <span class="q">Texnika <span class="req">*</span></span>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="tech" value="O'z noutbugi bor" required> O'z noutbugimiz bor</label>
+        <label class="opt"><input type="radio" name="tech" value="Maktab texnikasi kerak"> Maktab texnikasi kerak</label>
+      </div>
+    </div>
+
+    <div class="f">
+      <label class="q" for="mentor">Mentor o'qituvchi
+        <span class="hint">Ixtiyoriy. Yozmasangiz, o'quv bo'limi biriktiradi.</span></label>
+      <input type="text" id="mentor" name="mentor" maxlength="60" autocomplete="off">
+    </div>
+
+    <div class="f">
+      <div class="opts">
+        <label class="opt"><input type="checkbox" id="rules" name="rules" required> Ha, qoidalarni o'qib chiqdim <span class="req">*</span></label>
+      </div>
+    </div>
+
+    <button type="submit" id="btn">Ro'yxatdan o'tish</button>
+    <div class="err" id="err" role="alert"></div>
+  </form>
+
+  <section class="done" id="done">
+    <h2>Arizangiz qabul qilindi</h2>
+    <p id="doneTeam"></p>
+    <p class="small">24-noyabr kuni jamoalar ro'yxati va mentorlar e'lon qilinadi. Shu kungacha loyiha g'oyangiz ustida o'ylab turing.</p>
+  </section>
+</main>
+
+<footer>Najot Ta'lim Maktabi &middot; IT va AI yo'nalishi</footer>
+
+<script>
+(function(){
+  var SUBMIT_URL = "https://api.jotform.com/form-backend/submit";
+  var KEY = "fb1.eyJ2ZXJzaW9uIjoxLCJmb3JtX2lkIjoiMjYzMjIyNjcxMzcyMDUwIiwidXNlcm5hbWUiOiJpbGtob21qb24yMDAxIiwid2Vic2l0ZV9pZCI6Im5ham90LWhhY2thdG9uLWFpLXlvcmRhbWNoaXNpIiwiZmllbGRzIjpbeyJuYW1lIjoidGVhbV9uYW1lIiwicWlkIjoiMiIsInR5cGUiOiJ0ZXh0IiwicmVxdWlyZWQiOnRydWV9LHsibmFtZSI6ImNhcHRhaW4iLCJxaWQiOiIzIiwidHlwZSI6Im5hbWUiLCJyZXF1aXJlZCI6dHJ1ZX0seyJuYW1lIjoiY2FwdGFpbl9jbGFzcyIsInFpZCI6IjQiLCJ0eXBlIjoic2VsZWN0IiwicmVxdWlyZWQiOnRydWV9LHsibmFtZSI6InBob25lIiwicWlkIjoiNSIsInR5cGUiOiJwaG9uZSIsInJlcXVpcmVkIjp0cnVlfSx7Im5hbWUiOiJtZW1iZXJzIiwicWlkIjoiNiIsInR5cGUiOiJ0ZXh0YXJlYSIsInJlcXVpcmVkIjp0cnVlfSx7Im5hbWUiOiJtZW1iZXJzX2NvdW50IiwicWlkIjoiNyIsInR5cGUiOiJzZWxlY3QiLCJyZXF1aXJlZCI6dHJ1ZX0seyJuYW1lIjoiZGlyZWN0aW9uIiwicWlkIjoiOCIsInR5cGUiOiJyYWRpbyIsInJlcXVpcmVkIjp0cnVlfSx7Im5hbWUiOiJpZGVhIiwicWlkIjoiOSIsInR5cGUiOiJ0ZXh0YXJlYSIsInJlcXVpcmVkIjp0cnVlfSx7Im5hbWUiOiJ0b29sIiwicWlkIjoiMTAiLCJ0eXBlIjoicmFkaW8iLCJyZXF1aXJlZCI6dHJ1ZX0seyJuYW1lIjoidGVjaCIsInFpZCI6IjExIiwidHlwZSI6InJhZGlvIiwicmVxdWlyZWQiOnRydWV9LHsibmFtZSI6Im1lbnRvciIsInFpZCI6IjEyIiwidHlwZSI6InRleHQiLCJyZXF1aXJlZCI6ZmFsc2V9LHsibmFtZSI6InJ1bGVzIiwicWlkIjoiMTMiLCJ0eXBlIjoibXVsdGlwbGVfY2hvaWNlIiwicmVxdWlyZWQiOnRydWUsIm9wdGlvbnMiOlsiSGEsIHFvaWRhbGFybmkgbydxaWIgY2hpcWRpbSJdfV19.60b6b4c07d350e484b57bd8c70000d260c56fce4e13f0fdb2e07918955d0c33a";
+
+  var f = document.getElementById('f'),
+      btn = document.getElementById('btn'),
+      err = document.getElementById('err'),
+      done = document.getElementById('done');
+
+  function val(id){ var el = document.getElementById(id); return el ? el.value.trim() : ''; }
+  function picked(n){ var el = f.querySelector('input[name="' + n + '"]:checked'); return el ? el.value : ''; }
+
+  f.addEventListener('submit', function(e){
+    e.preventDefault();
+    err.textContent = '';
+
+    var data = {
+      team_name: val('team_name'),
+      captain: { first: val('first'), last: val('last') },
+      captain_class: val('captain_class'),
+      phone: val('phone'),
+      members: val('members'),
+      members_count: val('members_count'),
+      direction: picked('direction'),
+      idea: val('idea'),
+      tool: picked('tool'),
+      tech: picked('tech'),
+      mentor: val('mentor'),
+      rules: document.getElementById('rules').checked ? ["Ha, qoidalarni o'qib chiqdim"] : []
+    };
+
+    var missing = [];
+    if(!data.team_name) missing.push('jamoa nomi');
+    if(!data.captain.first || !data.captain.last) missing.push('kapitan ism-familiyasi');
+    if(!data.captain_class) missing.push('sinf');
+    if(!data.phone) missing.push('telefon raqami');
+    if(!data.members) missing.push("a'zolar ro'yxati");
+    if(!data.members_count) missing.push("a'zolar soni");
+    if(!data.direction) missing.push("yo'nalish");
+    if(!data.idea) missing.push("loyiha g'oyasi");
+    if(!data.tool) missing.push('vosita');
+    if(!data.tech) missing.push('texnika');
+    if(!data.rules.length) missing.push('qoidalar bilan tanishish');
+
+    if(missing.length){
+      err.textContent = "To'ldirilmagan maydonlar: " + missing.join(', ') + '.';
+      return;
+    }
+    if(data.phone.replace(/\D/g,'').length < 9){
+      err.textContent = "Telefon raqamini to'liq kiriting.";
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Yuborilmoqda...';
+
+    fetch(SUBMIT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ submission_key: KEY, data: data })
+    })
+    .then(function(r){ return r.json().catch(function(){ return {}; }).then(function(j){ return { ok: r.ok, body: j }; }); })
+    .then(function(res){
+      var good = res.ok && (!res.body || !res.body.content || res.body.content.success !== false);
+      if(good){
+        document.getElementById('doneTeam').textContent = '"' + data.team_name + '" jamoasi ro’yxatga olindi.';
+        f.style.display = 'none';
+        done.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        throw new Error('server');
+      }
+    })
+    .catch(function(){
+      btn.disabled = false;
+      btn.textContent = "Ro'yxatdan o'tish";
+      err.textContent = "Yuborib bo'lmadi. Internetni tekshirib, qaytadan urinib ko'ring yoki ustozingizga murojaat qiling.";
+    });
+  });
+})();
+</script>
+</body>
+</html>
